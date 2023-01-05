@@ -44,16 +44,23 @@ function playRound(humanChoice){
     console.log("You chose " + humanChoice + " and the computer chose " + computerChoice +"!");
         if (humanChoice == computerChoice){
             console.log ("Let's call it a draw.")
+            draws ++;
+            drawCount.textContent = "Draws: " + draws;
             return "draw";
         } else if ((humanChoice == "Rock" && computerChoice == "Paper") 
         || (humanChoice == "Scissors" && computerChoice == "Rock")
         || (humanChoice == "Paper" && computerChoice == "Scissors")){
             console.log ("The computer wins this time.")
+            losses ++;
+            lossCount.textContent = "Losses: " + losses;
+
             return "loss";
         } else if ((humanChoice == "Paper" && computerChoice == "Rock") 
         || (humanChoice == "Rock" && computerChoice == "Scissors")
         || (humanChoice == "Scissors" && computerChoice == "Paper")){
             console.log ("The squishy human wins this time.")
+            wins++;
+            winCount.textContent = "Wins: " + wins;
             return "win";
         } else {
             console.log("Something went wrong.")
@@ -73,16 +80,22 @@ function bestOfFive(){
     }
         return wins;
 
-     
+ 
 }
 
-const rockbtn = document.querySelector('#rock');
-rockbtn.addEventListener('click', roundRock);
-function roundRock() {playRound("Rock");}
-const paperbtn = document.querySelector('#paper');
-paperbtn.addEventListener('click', roundPaper);
-function roundPaper() {playRound("Paper");}
-const scissorsbtn = document.querySelector('#scissors');
-scissorsbtn.addEventListener('click', roundScissors);
-function roundScissors() {playRound("Scissors");}
+    const winCount = document.querySelector('#winCount');
+    const lossCount = document.querySelector('#lossCount');
+    const drawCount = document.querySelector('#drawCount');
+    
+    const rockbtn = document.querySelector('#rock');
+    rockbtn.addEventListener('click', roundRock);
+    function roundRock() {playRound("Rock");}
+
+    const paperbtn = document.querySelector('#paper');
+    paperbtn.addEventListener('click', roundPaper);
+    function roundPaper() {playRound("Paper");}
+
+    const scissorsbtn = document.querySelector('#scissors');
+    scissorsbtn.addEventListener('click', roundScissors);
+    function roundScissors() {playRound("Scissors");}
 
