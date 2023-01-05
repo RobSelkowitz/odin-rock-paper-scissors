@@ -5,10 +5,12 @@ console.log("Hello Cleveland!");
 let wins = 0;
 let losses = 0;
 let draws = 0;
+const Rock = "Rock";
 
+/* removing this while building AI
 console.log ("Let's play a best of five, squishy human.  Rock paper scissors, go!");
 console.log ("You won " + bestOfFive() + " rounds. I won " + losses +" rounds. Not bad for a human.");
-
+*/
 
 function computer_choice(){
     choice=(1+Math.floor(Math.random()*3));
@@ -36,17 +38,9 @@ function human_choice(){
         return choice;
     }
 }
-function playRound(){
+function playRound(humanChoice){
     
     let computerChoice = computer_choice();
-    let humanChoice;
-    let keepGoing = true;
-        while(keepGoing == true){
-            humanChoice = human_choice();
-        if (humanChoice == "Rock" || humanChoice == "Paper" || humanChoice == "Scissors"){
-            keepGoing = false;
-        } else keepGoing = true;
-    }
     console.log("You chose " + humanChoice + " and the computer chose " + computerChoice +"!");
         if (humanChoice == computerChoice){
             console.log ("Let's call it a draw.")
@@ -66,6 +60,7 @@ function playRound(){
             return "WTF";
         }
     }
+
 function bestOfFive(){
     for (let round = 0; round < 5; round++){
         outcome = playRound();
@@ -80,4 +75,14 @@ function bestOfFive(){
 
      
 }
-     
+
+const rockbtn = document.querySelector('#rock');
+rockbtn.addEventListener('click', roundRock);
+function roundRock() {playRound("Rock");}
+const paperbtn = document.querySelector('#paper');
+paperbtn.addEventListener('click', roundPaper);
+function roundPaper() {playRound("Paper");}
+const scissorsbtn = document.querySelector('#scissors');
+scissorsbtn.addEventListener('click', roundScissors);
+function roundScissors() {playRound("Scissors");}
+
