@@ -5,6 +5,7 @@ console.log("Hello Cleveland!");
 let wins = 0;
 let losses = 0;
 let draws = 0;
+let isGameOver = false;
 
 function computer_choice(){
     choice=(1+Math.floor(Math.random()*3));
@@ -35,42 +36,61 @@ function human_choice(){
 function playRound(humanChoice){
     
     let computerChoice = computer_choice();
-    console.log("You chose " + humanChoice + " and the computer chose " + computerChoice +"!");
+    
+    if (isGameOver == false){
+        roundInfo.textContent = "You chose " + humanChoice + 
+    " and the computer chose " + computerChoice +"!";
+    } 
+
         if (humanChoice == computerChoice){
-            console.log ("Let's call it a draw.")
             draws ++;
-            drawCount.textContent = "Draws: " + draws;
-            return "draw";
+            
         } else if ((humanChoice == "Rock" && computerChoice == "Paper") 
         || (humanChoice == "Scissors" && computerChoice == "Rock")
         || (humanChoice == "Paper" && computerChoice == "Scissors")){
-            console.log ("The computer wins this time.")
             losses ++;
-            lossCount.textContent = "Computer: " + losses;
 
-            return "loss";
+            
         } else if ((humanChoice == "Paper" && computerChoice == "Rock") 
         || (humanChoice == "Rock" && computerChoice == "Scissors")
         || (humanChoice == "Scissors" && computerChoice == "Paper")){
-            console.log ("The squishy human wins this time.")
             wins++;
-            winCount.textContent = "Human: " + wins;
-            return "win";
+                        
         } else {
             console.log("Something went wrong.")
-            return "WTF";
-        }
+                    }
+        updateScore();
+        return;
+
     }
+
+function updateScore(){
+    if (isGameOver == true){
+        gameOver.textContent = "Game Over man. Game over.";    
+
+    }else if (wins >= 5){
+        winCount.textContent = "Human: " + wins + 
+        " you actually won?!";
+        isGameOver = true;
+    }else if (losses >= 5) {
+        lossCount.textContent = "Computer: " + losses + 
+        " another glorious triumph for computerkind!";
+        isGameOver = true;        
+    }else {
+        winCount.textContent = "Human: " + wins;
+        lossCount.textContent = "Computer: " + losses;
+        }
+}
 
 function startGame(){
     wins=0;
     losses=0;
     draws=0;
-    winCount.textContent = "Human: " + wins;
-    lossCount.textContent = "Computer: " + losses;
-    drawCount.textContent = "Draws: " + draws;
-    console.log("Anything?");
-    return "wins";
+    isGameOver = false;
+    gameOver.textContent = " "
+    roundInfo.textContent = "What will you choose?"
+    updateScore();
+    return;
         
 }
 
@@ -81,7 +101,7 @@ function startGame(){
     const winCount = document.querySelector('#winCount');
     const lossCount = document.querySelector('#lossCount');
     const drawCount = document.querySelector('#drawCount');
-    
+    const gameOver = document.querySelector('#gameOver');    
     const rockbtn = document.querySelector('#rock');
     rockbtn.addEventListener('click', roundRock);
     function roundRock() {playRound("Rock");}
@@ -93,5 +113,6 @@ function startGame(){
     const scissorsbtn = document.querySelector('#scissors');
     scissorsbtn.addEventListener('click', roundScissors);
     function roundScissors() {playRound("Scissors");}  
+    const roundInfo = document.querySelector('#roundInfo');
 
 
