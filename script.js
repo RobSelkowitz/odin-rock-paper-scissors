@@ -5,12 +5,6 @@ console.log("Hello Cleveland!");
 let wins = 0;
 let losses = 0;
 let draws = 0;
-const Rock = "Rock";
-
-/* removing this while building AI
-console.log ("Let's play a best of five, squishy human.  Rock paper scissors, go!");
-console.log ("You won " + bestOfFive() + " rounds. I won " + losses +" rounds. Not bad for a human.");
-*/
 
 function computer_choice(){
     choice=(1+Math.floor(Math.random()*3));
@@ -52,7 +46,7 @@ function playRound(humanChoice){
         || (humanChoice == "Paper" && computerChoice == "Scissors")){
             console.log ("The computer wins this time.")
             losses ++;
-            lossCount.textContent = "Losses: " + losses;
+            lossCount.textContent = "Computer: " + losses;
 
             return "loss";
         } else if ((humanChoice == "Paper" && computerChoice == "Rock") 
@@ -60,7 +54,7 @@ function playRound(humanChoice){
         || (humanChoice == "Scissors" && computerChoice == "Paper")){
             console.log ("The squishy human wins this time.")
             wins++;
-            winCount.textContent = "Wins: " + wins;
+            winCount.textContent = "Human: " + wins;
             return "win";
         } else {
             console.log("Something went wrong.")
@@ -68,20 +62,21 @@ function playRound(humanChoice){
         }
     }
 
-function bestOfFive(){
-    for (let round = 0; round < 5; round++){
-        outcome = playRound();
-        if (outcome == "win") wins++;
-        else if (outcome == "loss") losses++;
-        else if (outcome == "draw") draws++;
-        else console.log("That round didn't work right!")
-        console.log("Score after " + (round+1) + " rounds is: "
-         + wins +" wins, " + draws+ " draws, and " + losses +" losses." );
-    }
-        return wins;
-
- 
+function startGame(){
+    wins=0;
+    losses=0;
+    draws=0;
+    winCount.textContent = "Human: " + wins;
+    lossCount.textContent = "Computer: " + losses;
+    drawCount.textContent = "Draws: " + draws;
+    console.log("Anything?");
+    return "wins";
+        
 }
+
+
+    const startbtn = document.querySelector('#start');
+    startbtn.addEventListener('click', startGame);
 
     const winCount = document.querySelector('#winCount');
     const lossCount = document.querySelector('#lossCount');
@@ -97,5 +92,6 @@ function bestOfFive(){
 
     const scissorsbtn = document.querySelector('#scissors');
     scissorsbtn.addEventListener('click', roundScissors);
-    function roundScissors() {playRound("Scissors");}
+    function roundScissors() {playRound("Scissors");}  
+
 
